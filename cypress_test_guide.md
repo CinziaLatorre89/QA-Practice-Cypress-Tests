@@ -30,7 +30,7 @@
 
 ---
 
-### 1.2 Happy Path - Logout
+### 1.2 Happy Path - Logout -> === DONE ===
 **Obiettivo:** Verificare che l'utente possa uscire correttamente
 
 **Prerequisiti:**
@@ -52,7 +52,7 @@
 
 ---
 
-### 1.3 Happy Path - Persistenza Sessione
+### 1.3 Happy Path - Persistenza Sessione -> === DONE ===
 **Obiettivo:** Verificare che la sessione rimanga attiva dopo refresh
 
 **Prerequisiti:**
@@ -75,7 +75,7 @@
 
 ---
 
-### 1.4 Edge Case - Email Vuota
+### 1.4 Edge Case - Email Vuota -> === DONE ===
 **Obiettivo:** Verificare validazione quando email è mancante
 
 **Step principali:**
@@ -96,7 +96,7 @@
 
 ---
 
-### 1.5 Edge Case - Password Vuota
+### 1.5 Edge Case - Password Vuota -> === DONE ===
 **Obiettivo:** Come sopra, ma per password
 
 **Step principali:**

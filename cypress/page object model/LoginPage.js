@@ -15,6 +15,10 @@ class LoginPage {
     get loginButton () {
         return cy.get('#submitLoginBtn')
     }
+
+    get loginErrorMessage () {
+        return cy.get('#message')
+    }
 }
 
 export default new LoginPage
