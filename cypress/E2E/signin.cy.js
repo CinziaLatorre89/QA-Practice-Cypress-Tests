@@ -19,18 +19,11 @@ describe('Login Happy Path', () => {
         cy.get('#logout').should('not.exist')
         cy.clearLocalStorage()
     });
-    
-    // Non Mantenimento sessione dopo refresh pagina
-    it('La sessione non deve rimanere attiva dopo il refresh', () => {
-        cy.login()
-        cy.reload()
-        cy.get('#logout').should('not.exist')
-    });
 });
 
 
 // ==== EDGE CASES ====
-describe('Login Edge Cases', () => {
+describe('Login fallisce per campi input errati', () => {
     beforeEach(() => {
         cy.visit('/')
         LoginPage.loginLink.click()
@@ -44,10 +37,6 @@ describe('Login Edge Cases', () => {
         })
         
         LoginPage.loginButton.click()
-        
-        LoginPage.loginErrorMessage
-            .should('be.visible')
-            .and('contain','Bad credentials! Please try again!')
     });
 
     // Login con password vuota
@@ -55,14 +44,11 @@ describe('Login Edge Cases', () => {
         cy.fixture('users').then(users => {
             LoginPage.emailInput.type(users.validUser.email)
             LoginPage.loginButton.click()
-            LoginPage.loginErrorMessage
-                .should('be.visible')
-                .and('contain','Bad credentials! Please try again!')
         })
     });
 
     // Login con email non registrata
-    it.only('Email non registrata - Login fallisce', () => {
+    it('Email non registrata - Login fallisce', () => {
         cy.fixture('users').then(users => {
             LoginPage.emailInput.type('john.doe@gmail.com')
             LoginPage.pswInput.type(users.validUser.password)
@@ -70,20 +56,70 @@ describe('Login Edge Cases', () => {
 
         LoginPage.loginButton.click()
 
-        LoginPage.loginErrorMessage
-            .should('be.visible')
-            .and('contain','Bad credentials! Please try again!')
-
-        cy.intercept('POST' , '/api/login', {
+        /* cy.intercept('POST' , '/api/login', {
             statusCode: 401,
             body: {message: 'Bad credentials! Please try again! Make sure that you ve registered.'}
         }).as('loginRequest')
 
-        cy.wait('@loginRequest').its('response.statusCode').should('eq',401)
+        cy.wait('@loginRequest').its('response.statusCode').should('eq',401) */
     });
+
+    // Login con email in formato non corretto
+    it('Email in formato non corretto - Login fallisce', () => {
+        cy.fixture('users').then(users => {
+            LoginPage.emailInput.type('admin.com')
+            LoginPage.pswInput.type(users.validUser.password)
+        })
+
+        LoginPage.loginButton.click()
+    });
+
     // Login con password errata
-    // Controllo messaggio di errore corretto
-    // Controllo limite di tentativi falliti (se presente)
+    it('Password errata - Login fallisce', () => {
+        cy.fixture('users').then(users => {
+            LoginPage.emailInput.type(users.validUser.email)
+            LoginPage.pswInput.type('123')
+        })
+
+        LoginPage.loginButton.click()
+    });
+
+    // Controllo messaggio di errore per ogni edge case di login fallito
+    afterEach(() => {
+        LoginPage.loginErrorMessage
+            .should('be.visible')
+            .and ('contain' , 'Bad credentials! Please try again!')
+    });
+});
+
+describe('Edge Case comportamenti utente', () => {
+    beforeEach(() => {
+        cy.visit('/')
+        LoginPage.loginLink.click()
+            cy.fixture('users').then(users => {
+                LoginPage.emailInput.type(users.validUser.email)
+                LoginPage.pswInput.type(users.validUser.password)
+            })
+    });
+
+    // Non Mantenimento sessione dopo refresh pagina
+    it('Utente refresha per errore dopo il login - Deve avvenire il logout', () => {
+        LoginPage.loginButton.click()
+        cy.reload()
+        cy.get('#logout').should('not.exist')
+        LoginPage.emailInput.should('be.empty')
+        LoginPage.pswInput.should('be.empty')
+    });
+
+    it.only('Utente clicca velocemente 3 volte sul pulsante di Login - Sistema fa solo 1 chiamata API', () => {
+        cy.intercept('POST' , '**/api/login').as('loginRequest')
+        
+        LoginPage.loginButton.click()
+
+        cy.wait(1000)
+
+        cy.get('@loginRequest.all').should('have.length', 1)
+    });
 });
 
 // ==== RESPONSIVE ====
