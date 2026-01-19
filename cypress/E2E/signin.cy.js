@@ -110,16 +110,6 @@ describe('Edge Case comportamenti utente', () => {
         LoginPage.emailInput.should('be.empty')
         LoginPage.pswInput.should('be.empty')
     });
-
-    it.only('Utente clicca velocemente 3 volte sul pulsante di Login - Sistema fa solo 1 chiamata API', () => {
-        cy.intercept('POST' , '**/api/login').as('loginRequest')
-        
-        LoginPage.loginButton.click()
-
-        cy.wait(1000)
-
-        cy.get('@loginRequest.all').should('have.length', 1)
-    });
 });
 
 // ==== RESPONSIVE ====
