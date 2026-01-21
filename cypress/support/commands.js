@@ -1,5 +1,7 @@
 import LoginPage from "../page object model/LoginPage"
+import SignUpPage from "../page object model/SignUpPage"
 
+// Login
 Cypress.Commands.add("login" , () => {
     LoginPage.loginLink.click()
     cy.fixture('users').then(users => {
@@ -9,6 +11,7 @@ Cypress.Commands.add("login" , () => {
     LoginPage.loginButton.click()
 })
 
+// Logout
 Cypress.Commands.add("logout" , () => {
     cy.get('#logout').click()
 })

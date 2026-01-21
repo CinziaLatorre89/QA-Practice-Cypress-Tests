@@ -2,5 +2,15 @@
   "validUser": {
     "email": "admin@admin.com",
     "password": "admin123"
+  },
+
+  "registrationData": {
+    "firstName": "Mario",
+    "lastName": "Rossi",
+    "phoneNumber": "3333333333",
+    "country": "Italy",
+    "emailAddress": "mario.rossi@mail.com",
+    "password": "M@rio123"
   }
+
 }

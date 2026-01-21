@@ -95,16 +95,11 @@ describe('Login fallisce per campi input errati', () => {
 describe('Edge Case comportamenti utente', () => {
     beforeEach(() => {
         cy.visit('/')
-        LoginPage.loginLink.click()
-            cy.fixture('users').then(users => {
-                LoginPage.emailInput.type(users.validUser.email)
-                LoginPage.pswInput.type(users.validUser.password)
-            })
+        cy.login()
     });
 
     // Non Mantenimento sessione dopo refresh pagina
     it('Utente refresha per errore dopo il login - Deve avvenire il logout', () => {
-        LoginPage.loginButton.click()
         cy.reload()
         cy.get('#logout').should('not.exist')
         LoginPage.emailInput.should('be.empty')
@@ -112,4 +107,3 @@ describe('Edge Case comportamenti utente', () => {
     });
 });
 
-// ==== RESPONSIVE ====

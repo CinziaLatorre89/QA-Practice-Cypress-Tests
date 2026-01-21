@@ -1,12 +1,44 @@
+import SignUpPage from "../page object model/SignUpPage";
+
 // ==== HAPPY PATH ====
-// Registrazione con dati validi
-// Verifica messaggio di conferma
-// Login automatico dopo registrazione (se previsto)
+// Registrazione avviene con successo
+describe('Sign Up Happy Path', () => {
+    beforeEach(() => {
+        cy.visit('/')
+        cy.get('#forms').click()
+        SignUpPage.signUpLink.click()
+        cy.url().should('include','/register.html')
+        cy.fixture('users').as('user')
+    });
+
+    it('Utente compila tutti i campi e si registra correttamente', function () {
+       SignUpPage.fillAllFields(this.user.registrationData)
+                 .requiredFieldsFilled(this.user.registrationData)
+                 .submitRegisterForm()
+                 .verifyRegistrationMessage()
+    });
+
+    it('Utente compila solo i campi obbligatori e si registra correttamente', function () {
+        SignUpPage.fillRequiredFields(this.user.registrationData)
+                  .requiredFieldsFilled(this.user.registrationData)
+                  .submitRegisterForm()
+                  .verifyRegistrationMessage()
+    });
+});
 
 // ==== EDGE CASES ====
-// Email già esistente
-// Password troppo corta o non conforme
-// Campi vuoti
-// Validazione lato client (form) vs API
+// Registrazione fallisce
+describe('Sign Up Edge cases', () => {
+    beforeEach(() => {
+        cy.visit('/')
+        cy.get('#forms').click()
+        SignUpPage.signUpLink.click()
+        cy.url().should('include','/register.html')
+        cy.fixture('users').as('user')
+    });
 
-// ==== RESPONSIVE ====
+    // Campi obbligatori vuoti - Registrazione non avviene
+    it('', function () {
+        
+    });
+});
