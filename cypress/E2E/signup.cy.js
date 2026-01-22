@@ -8,6 +8,7 @@ describe('Sign Up Happy Path', () => {
         cy.get('#forms').click()
         SignUpPage.signUpLink.click()
         cy.url().should('include','/register.html')
+        SignUpPage.registerFormIsVisible()
         cy.fixture('users').as('user')
     });
 
@@ -34,11 +35,26 @@ describe('Sign Up Edge cases', () => {
         cy.get('#forms').click()
         SignUpPage.signUpLink.click()
         cy.url().should('include','/register.html')
+        SignUpPage.registerFormIsVisible()
         cy.fixture('users').as('user')
     });
 
     // Campi obbligatori vuoti - Registrazione non avviene
-    it('', function () {
+    it('Utente non compila il campo Email obbligatorio', function () {
+        SignUpPage.fillFormExcept(this.user.registrationData, ['emailAddress'])
+        SignUpPage.submitRegisterForm()
         
+        SignUpPage.emailAddress.should('be.focused')
+        cy.get('#message').should('not.be.visible')
+        cy.url().should('include','register.html')
+    });
+
+    it.only('Utente non compila il campo Password obbligatorio', function () {
+        SignUpPage.fillFormExcept(this.user.registrationData, ['password'])
+        SignUpPage.submitRegisterForm()
+        
+        SignUpPage.password.should('be.focused')
+        cy.get('#message').should('not.be.visible')
+        cy.url().should('include','register.html')
     });
 });

@@ -98,7 +98,6 @@ class SignUpPage {
     fillRequiredFields (data) {
         this.fillEmailAddress(data.emailAddress)
             .fillPassword(data.password)
-            .acceptTerms()
         return this
     }
 
@@ -110,6 +109,38 @@ class SignUpPage {
             .fillEmailAddress(data.emailAddress)
             .fillPassword(data.password)
             .acceptTerms()
+        return this
+    }
+
+    fillFormExcept (data , excludedFields=[]) {
+        if (!excludedFields.includes('firstName')) {
+            this.fillFirstName(data.firstName)
+        }
+
+        if (!excludedFields.includes('lastName')) {
+            this.fillLastName(data.lastName)
+        }
+
+        if (!excludedFields.includes('phoneNumber')) {
+            this.fillPhoneNumber(data.phoneNumber)
+        }
+
+        if (!excludedFields.includes('country')) {
+            this.fillCountry(data.country)
+        }
+
+        if (!excludedFields.includes('emailAddress')) {
+            this.fillEmailAddress(data.emailAddress)
+        }
+
+        if (!excludedFields.includes('password')) {
+            this.fillPassword(data.password)
+        }
+
+        if (!excludedFields.includes('termsCheckbox')) {
+            this.acceptTerms()
+        }
+
         return this
     }
 
