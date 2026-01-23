@@ -58,10 +58,10 @@ describe('Sign Up Edge cases', () => {
         cy.url().should('include','/register.html')
     });
 
-    // Email inserita in registrazione già esistente
-    // Bug 001: Il test viene skippato perché il sito non esegue questo controllo
-    // Expected: Dovrebbe mostrare messaggio di errore
-    // Actual: Permette registrazione con email già esistente
+    // Email inserita in registrazione già registrata
+    // * Bug 001: Il test viene skippato perché il sito non esegue questo controllo
+    // * Expected: Dovrebbe mostrare messaggio di errore
+    // * Actual: Permette registrazione con email già esistente
     it.skip('Utente cerca di registrarsi con una email già esistente', function () {
         SignUpPage.fillAllFields(this.user.defaultUser)
         SignUpPage.submitRegisterForm()
@@ -71,9 +71,9 @@ describe('Sign Up Edge cases', () => {
     });
 
     // Email inserita in registrazione in formato non valido
-    // Bug 002: Il test viene skippato perché il sito non esegue questo controllo
-    // Expected: Dovrebbe mostrare messaggio di errore
-    // Actual: Permette registrazione con email in formato non valido
+    // * Bug 002: Il test viene skippato perché il sito non esegue questo controllo
+    // * Expected: Dovrebbe mostrare messaggio di errore
+    // * Actual: Permette registrazione con email in formato non valido
     it.skip('Utente cerca di registrarsi con una email che ha un formato non valido', function () {
         SignUpPage.fillAllFields(this.user.invalidEmailUser)
         SignUpPage.submitRegisterForm()
@@ -83,9 +83,9 @@ describe('Sign Up Edge cases', () => {
     });
 
     // Password inserita in registrazione non rispetta i requisiti
-    // Bug 003: Il test viene skippato perché il sito non esegue questo controllo
-    // Expected: Dovrebbe mostrare messaggio di errore
-    // Actual: Permette registrazione con password che non rispetta i requisiti
+    // * Bug 003: Il test viene skippato perché il sito non esegue questo controllo
+    // * Expected: Dovrebbe mostrare messaggio di errore
+    // * Actual: Permette registrazione con password che non rispetta i requisiti
     it.skip('Utente cerca di registrarsi con una email che ha un formato non valido', function () {
         SignUpPage.fillAllFields(this.user.invalidPasswordUser)
         SignUpPage.submitRegisterForm()

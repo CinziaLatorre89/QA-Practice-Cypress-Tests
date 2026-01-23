@@ -38,6 +38,18 @@
     "country": "Italy",
     "emailAddress": "mario.rossi@mail.com",
     "password": "123"
+  },
+
+  "registeredEmail" : {
+    "email": "admin@admin.com"
+  },
+
+  "unregisteredEmail" : {
+    "email": "test.test@mail.com"
+  },
+
+  "incorrectEmail": {
+    "email": "test.test"
   }
 
 }
