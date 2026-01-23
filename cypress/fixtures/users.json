@@ -11,6 +11,33 @@
     "country": "Italy",
     "emailAddress": "mario.rossi@mail.com",
     "password": "M@rio123"
+  },
+
+  "defaultUser" : {
+    "firstName": "Mario",
+    "lastName": "Rossi",
+    "phoneNumber": "3333333333",
+    "country": "Italy",
+    "emailAddress": "admin@admin.com",
+    "password": "M@rio123"
+  },
+
+  "invalidEmailUser" : {
+    "firstName": "Mario",
+    "lastName": "Rossi",
+    "phoneNumber": "3333333333",
+    "country": "Italy",
+    "emailAddress": "mario.rossi",
+    "password": "M@rio123"
+  },
+
+  "invalidPasswordUser" : {
+    "firstName": "Mario",
+    "lastName": "Rossi",
+    "phoneNumber": "3333333333",
+    "country": "Italy",
+    "emailAddress": "mario.rossi@mail.com",
+    "password": "123"
   }
 
 }

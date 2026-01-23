@@ -46,15 +46,51 @@ describe('Sign Up Edge cases', () => {
         
         SignUpPage.emailAddress.should('be.focused')
         cy.get('#message').should('not.be.visible')
-        cy.url().should('include','register.html')
+        cy.url().should('include','/register.html')
     });
 
-    it.only('Utente non compila il campo Password obbligatorio', function () {
+    it('Utente non compila il campo Password obbligatorio', function () {
         SignUpPage.fillFormExcept(this.user.registrationData, ['password'])
         SignUpPage.submitRegisterForm()
         
         SignUpPage.password.should('be.focused')
         cy.get('#message').should('not.be.visible')
-        cy.url().should('include','register.html')
+        cy.url().should('include','/register.html')
+    });
+
+    // Email inserita in registrazione già esistente
+    // Bug 001: Il test viene skippato perché il sito non esegue questo controllo
+    // Expected: Dovrebbe mostrare messaggio di errore
+    // Actual: Permette registrazione con email già esistente
+    it.skip('Utente cerca di registrarsi con una email già esistente', function () {
+        SignUpPage.fillAllFields(this.user.defaultUser)
+        SignUpPage.submitRegisterForm()
+
+        cy.get('#message').should('be.visible')
+        cy.url().should('include', '/register.html')
+    });
+
+    // Email inserita in registrazione in formato non valido
+    // Bug 002: Il test viene skippato perché il sito non esegue questo controllo
+    // Expected: Dovrebbe mostrare messaggio di errore
+    // Actual: Permette registrazione con email in formato non valido
+    it.skip('Utente cerca di registrarsi con una email che ha un formato non valido', function () {
+        SignUpPage.fillAllFields(this.user.invalidEmailUser)
+        SignUpPage.submitRegisterForm()
+
+        cy.get('#message').should('be.visible')
+        cy.url().should('include', '/register.html')
+    });
+
+    // Password inserita in registrazione non rispetta i requisiti
+    // Bug 003: Il test viene skippato perché il sito non esegue questo controllo
+    // Expected: Dovrebbe mostrare messaggio di errore
+    // Actual: Permette registrazione con password che non rispetta i requisiti
+    it.skip('Utente cerca di registrarsi con una email che ha un formato non valido', function () {
+        SignUpPage.fillAllFields(this.user.invalidPasswordUser)
+        SignUpPage.submitRegisterForm()
+
+        cy.get('#message').should('be.visible')
+        cy.url().should('include', '/register.html')
     });
 });

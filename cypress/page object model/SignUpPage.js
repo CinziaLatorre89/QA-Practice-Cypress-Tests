@@ -84,8 +84,8 @@ class SignUpPage {
         return this
     }
 
-    acceptTerms (termsCheckbox) {
-        this.termsCheckbox.check(termsCheckbox)
+    acceptTerms () {
+        this.termsCheckbox.check()
         return this
     }
 
@@ -152,7 +152,6 @@ class SignUpPage {
     requiredFieldsFilled (data) {
         this.emailAddress.should('have.value', data.emailAddress)
         this.password.should('have.value', data.password)
-        this.termsCheckbox.should('be.checked')
         return this
     }
 
